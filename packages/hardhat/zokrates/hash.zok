@@ -1,0 +1,45 @@
+import "hashes/sha256/512bitPacked" as sha256packed;
+// field[4] preimage) -> field[2]
+// returns 2x128 bit field
+// Function definition for function sha256packed with signature (field[1]) -> field[2] not found.
+
+// nullifier, guess: 1x128, nullifierHash: 2x128
+// hashedGuesses is a witness
+def main(
+    public field guess,
+    private field nullifier
+    // public field[2] nullifierHash,
+    // public field[2] committedRoot
+    // private field[8][2] hashedGuesses
+    ) -> field[12][2] {
+  // Check if the nullifier hashes to the provided nullifier hash to be committed
+  field[2] nullifierHash = sha256packed([0, 0, 0, nullifier]); // 128 of 512
+  // assert(h == nullifierHash);
+  // field[2] x = [6,9];
+
+  // // Calculate the digest of the nullifier (secret salt) and guess
+  field[2] myHashedGuess = sha256packed([0, nullifier, 0, guess]);
+
+  // // Loop through hashed guesses to check if one matches our own hashed guess
+  field[8][2] mut hashedGuesses = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]];
+  field mut count = 0;
+  field mut n = 0;
+  field mut g = 40000;
+  for u32 i in 0..8 {
+    // [0, nullifier, 0, guess
+    hashedGuesses[i] = sha256packed([0, n, 0, g]);
+    g = g + 1000;
+    n = n + 1111;
+    count = count + (hashedGuesses[i] == myHashedGuess ? 1 : 0);
+  }
+  assert(count == 1); // > 1?
+
+  // // Calculate the Merkle tree root from the hashed guesses
+  field[2] mut merkleRoot = [0, 0];
+      for u32 i in 0..8 {
+      merkleRoot = sha256packed([...merkleRoot, ...hashedGuesses[i]]);
+  }
+  // assert(merkleRoot == committedRoot);
+  return [[guess, nullifier], myHashedGuess, nullifierHash, merkleRoot, 
+   hashedGuesses[0], hashedGuesses[1], hashedGuesses[2], hashedGuesses[3], hashedGuesses[4], hashedGuesses[5], hashedGuesses[6], hashedGuesses[7]];
+}

@@ -5,14 +5,21 @@ import "hashes/sha256/512bitPacked" as sha256packed;
 
 // nullifier, guess: 1x128, nullifierHash: 2x128
 // hashedGuesses is a witness
-def main(private field nullifier, public field[2] nullifierHash, public field guess, public field[2] committedRoot, private field[8][2] hashedGuesses) {
+def main(
+    public field guess, 
+    private field nullifier,
+    private field[2] myHashedGuessTEST, // make test consistent
+    public field[2] nullifierHash,
+    public field[2] committedRoot, 
+    private field[8][2] hashedGuesses) {
   // Check if the nullifier hashes to the provided nullifier hash to be committed
   field[2] h = sha256packed([0, 0, 0, nullifier]); // 128 of 512
   assert(h == nullifierHash);
 
   // Calculate the digest of the nullifier (secret salt) and guess
   field[2] myHashedGuess = sha256packed([0, nullifier, 0, guess]);
-
+  assert(myHashedGuess == myHashedGuessTEST);
+  
   // Loop through hashed guesses to check if one matches our own hashed guess
   field mut count = 0;
   for u32 i in 0..8 {
