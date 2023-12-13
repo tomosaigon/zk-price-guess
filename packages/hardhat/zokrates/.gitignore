@@ -1,5 +1,8 @@
 abi.json
 hash_*
+witness_*.json
+proof_*.json
+nullifierHash*
 out.r1cs
 out.wtns
 verification.key
