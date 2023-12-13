@@ -41,12 +41,12 @@ const P2222 = {
 }
 function proofFromJson(p: any) {
   return {
-    a: { X: fromHex(p.a[0], "bigint"), Y: fromHex(p.a[1], "bigint")},
+    a: { X: fromHex(p.a[0], "bigint"), Y: fromHex(p.a[1], "bigint") },
     b: {
       X: [fromHex(p.b[0][0], "bigint"), fromHex(p.b[0][1], "bigint")] as readonly [bigint, bigint],
       Y: [fromHex(p.b[1][0], "bigint"), fromHex(p.b[1][1], "bigint")] as readonly [bigint, bigint]
     },
-    c: { X: fromHex(p.c[0], "bigint"), Y: fromHex(p.c[1], "bigint")},
+    c: { X: fromHex(p.c[0], "bigint"), Y: fromHex(p.c[1], "bigint") },
   }
 }
 
@@ -86,7 +86,7 @@ const Home: NextPage = () => {
     contractName: "Guess",
     functionName: "btcPrice",
   });
-  const { data: btcPriceSet, isLoading: isLoadingBtcPriceSet } = useScaffoldContractRead({
+  const { data: btcPriceSet } = useScaffoldContractRead({
     contractName: "Guess",
     functionName: "btcPriceSet",
   });
@@ -143,26 +143,28 @@ const Home: NextPage = () => {
       <MetaHeader />
       <div className="flex items-center flex-col flex-grow pt-10">
         {/* Render content for state where guessing is allowed */}
-        {guessingIsAllowed && (
+        {!isLoadingGuessingIsAllowed && guessingIsAllowed && (
           <div className="px-5">
             {/* Table of hashed guesses */}
-            <table className="border-collapse border w-full">
-              <thead>
-                <tr>
-                  <th className="border p-2">Index</th>
-                  <th className="border p-2">Hashed Guess</th>
-                </tr>
-              </thead>
-              <tbody>
-                {hashedGuesses &&
-                  hashedGuesses.map((hashedGuess, index) => (
-                    <tr key={index}>
-                      <td className="border p-2">{index}</td>
-                      <td className="border p-2">{hashedGuess.toString()}</td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
+            {isLoadingHashedGuesses ? <p>Loading hashed guesses...</p> : (
+              <table className="border-collapse border w-full">
+                <thead>
+                  <tr>
+                    <th className="border p-2">Index</th>
+                    <th className="border p-2">Hashed Guess</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {hashedGuesses &&
+                    hashedGuesses.map((hashedGuess, index) => (
+                      <tr key={index}>
+                        <td className="border p-2">{index}</td>
+                        <td className="border p-2">{hashedGuess.toString()}</td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            )}
 
             {/* Form for committing guesses */}
             <div className="mt-4">
@@ -184,13 +186,13 @@ const Home: NextPage = () => {
                 className="border rounded p-2"
               />
 
-              <button className="mt-2 bg-blue-500 text-white p-2 rounded" onClick={(e) => {
+              <button className="mt-2 bg-blue-500 text-white p-2 rounded" disabled={isCommittingGuess}  onClick={(e) => {
                 writeAsyncCommitGuess();
                 e.preventDefault();
               }}>Commit Guess</button>
             </div>
 
-            <button className="mt-4 bg-red-500 text-white p-2 rounded" onClick={(e) => {
+            <button className="mt-4 bg-red-500 text-white p-2 rounded" disabled={isClosingGuessing} onClick={(e) => {
               writeAsyncCloseGuessing();
               e.preventDefault();
             }}>Close Guessing and Resolve Price</button>
@@ -198,12 +200,12 @@ const Home: NextPage = () => {
         )}
 
         {/* {updateBestIsAllowed } */}
-        {updateBestIsAllowed && (
+        {!isLoadingUpdateBestIsAllowed && updateBestIsAllowed && (
           <div className="flex-grow bg-gray-300 w-full mt-16 px-8 py-12">
             {/* Show settled BTC price, current best guess, and form for updating best guess */}
             <div>
-              <p>Settled BTC Price: {btcPrice ? formatEther(btcPrice) : ''}</p>
-              <p>Current Best Guess: {currentBestGuess ? formatEther(currentBestGuess) : ''}</p>
+              <p>Settled BTC Price: {btcPriceSet && !isLoadingBtcPrice && btcPrice ? formatEther(btcPrice) : ''}</p>
+              <p>Current Best Guess: {!isLoadingCurrentBestGuess && currentBestGuess ? formatEther(currentBestGuess) : ''}</p>
             </div>
 
             {/* Form for updating the best guess */}
@@ -217,7 +219,7 @@ const Home: NextPage = () => {
                 className="border rounded p-2"
               />
 
-                            <label htmlFor="guess">Guess:</label>
+              <label htmlFor="guess">Guess:</label>
               <input
                 type="text"
                 id="guess"
@@ -257,13 +259,13 @@ const Home: NextPage = () => {
                 onChange={(e) => setHashedGuessesRoot2(e.target.value)}
               />
 
-              <button className="mt-2 bg-green-500 text-white p-2 rounded" onClick={(e) => {
+              <button className="mt-2 bg-green-500 text-white p-2 rounded" disabled={isUpdatingBestGuess} onClick={(e) => {
                 writeAsyncUpdateBestGuess();
                 e.preventDefault();
               }}>Privately prove a better guess </button>
             </div>
 
-            <button className="mt-4 bg-purple-500 text-white p-2 rounded" onClick={(e) => {
+            <button className="mt-4 bg-purple-500 text-white p-2 rounded" disabled={isFinalizing} onClick={(e) => {
               writeAsyncFinalize();
               e.preventDefault();
             }}>Finalize</button>
