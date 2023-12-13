@@ -43,6 +43,7 @@ async function main() {
   // const order = [2];
   for (let idx = 0; idx < order.length; idx++) {
     const i = order[idx];
+    const guessContract = (await hre.ethers.getContract("Guess", signers[i])) as Guess;
     const price = 40000 + i * 1000;
     // const nullifier = i ? (1111 * i).toString() : "0000";
     const nullifier = (1111 * i).toString();
@@ -111,6 +112,18 @@ async function main() {
 
     console.log('New current best guess is ', hre.ethers.utils.formatEther(await guessContract.currentBestGuess()));
   }
+
+  const winners = await guessContract.currentBestGuessersLength();
+  const winners0 = await guessContract.currentBestGuessers(0)
+  console.log(`There are ${winners} winners, e.g.`, winners0);
+  const guessBalance = await hre.ethers.provider.getBalance(guessContract.address);
+  console.log(`Balance in contract ${guessContract.address}: ${hre.ethers.utils.formatEther(guessBalance)} ETH`);
+  let winner0Balance = await hre.ethers.provider.getBalance(winners0);
+  console.log(`Winners[0] balance ${winners0}: ${hre.ethers.utils.formatEther(winner0Balance)} ETH`);
+  await (await guessContract.finalize()).wait();
+  winner0Balance = await hre.ethers.provider.getBalance(winners0);
+  console.log(`Winners[0] balance ${winners0}: ${hre.ethers.utils.formatEther(winner0Balance)} ETH`);
+
 }
 
 main();
