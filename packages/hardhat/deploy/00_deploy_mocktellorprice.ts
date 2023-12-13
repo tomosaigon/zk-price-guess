@@ -2,12 +2,12 @@ import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 
 /**
- * Deploys a contract named "Guess" using the deployer account and
+ * Deploys a contract named "MockPriceContract" using the deployer account and
  * constructor arguments set to the deployer address
  *
  * @param hre HardhatRuntimeEnvironment object.
  */
-const deployGuess: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
+const deployMockPriceContract: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   /*
     On localhost, the deployer account is the one that comes with Hardhat, which is already funded.
 
@@ -21,15 +21,18 @@ const deployGuess: DeployFunction = async function (hre: HardhatRuntimeEnvironme
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
 
-  const _ticketPrice = hre.ethers.utils.parseEther("0.01");
-  const _verifierContract = await hre.deployments.get("Verifier");
-  // const _priceContract = await hre.deployments.get("PriceContract");
-  const _priceContract = await hre.deployments.get("MockPriceContract");
+  // Sepolia Testnet
+  // Token: 0x80fc34a2f9FfE86F41580F47368289C402DEc660
+  // Oracle: 0xB19584Be015c04cf6CFBF6370Fe94a58b7A38830
+  const Oracle = "0xB19584Be015c04cf6CFBF6370Fe94a58b7A38830";
+  // Governance: 0xA192f62726ea27979146dfF94f886a8E4Eb6D7A5
+  // Autopay: 0xB59a8085b4C360a3694396CA8E09441052656cF6
+  // DataSpecs: 0x9413c3b2Fb74A7b7e6CDeBa683b31646Ceb534F2
 
-  await deploy("Guess", {
+  await deploy("MockPriceContract", {
     from: deployer,
     // Contract constructor arguments
-    args: [_ticketPrice, _verifierContract.address, _priceContract.address],
+    args: [Oracle],
     log: true,
     // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
     // automatically mining the contract deployment transaction. There is no effect on live networks.
@@ -37,11 +40,13 @@ const deployGuess: DeployFunction = async function (hre: HardhatRuntimeEnvironme
   });
 
   // Get the deployed contract
-  // const Guess = await hre.ethers.getContract("Guess", deployer);
+  // const MockPriceContract = await hre.ethers.getContract("MockPriceContract", deployer);
+  // const tx = await MockPriceContract.setBtcPrice();
+  // await tx.wait;
 };
 
-export default deployGuess;
+export default deployMockPriceContract;
 
 // Tags are useful if you have multiple deploy files and only want to run one of them.
-// e.g. yarn deploy --tags Guess
-deployGuess.tags = ["Guess"];
+// e.g. yarn deploy --tags MockPriceContract
+deployMockPriceContract.tags = ["MockPriceContract"];
