@@ -34,7 +34,7 @@ async function main() {
 
     const guessContract = (await hre.ethers.getContract("Guess", signers[i])) as Guess;
     console.log(
-      `Account ${i} is ${signers[i].address}, guess is ${myHashedGuess1.toString()}, ${myHashedGuess2.toString()}}`,
+      `Account ${i} is ${signers[i].address}, ${filename} guess hashed is ${myHashedGuess1.toString()}, ${myHashedGuess2.toString()}}`,
     );
     const tx = await guessContract.commitGuess(myHashedGuess1, myHashedGuess2, {
       value: hre.ethers.utils.parseEther("0.01"),
