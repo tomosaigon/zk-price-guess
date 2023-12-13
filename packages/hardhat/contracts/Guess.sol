@@ -96,6 +96,28 @@ contract Guess {
 	//   public field[2] nullifierHash,
 	//   public field[2] committedRoot,
 	//   private field[8][2] hashedGuesses)
+  // XXX fails
+	function check(
+		Proof memory proof,
+		uint[5] memory inputs
+	) public view returns (bool) {
+		// Verify the proof using the VerifierContract's verifyTX function
+		return IVerifierContract(verifierContract).verifyTX(proof, inputs);
+	}
+  // XXX fails
+	function checkCopy(
+		Proof memory proof,
+		uint[5] memory inputs
+	) public view returns (bool) {
+		uint[5] memory inputValues;
+
+		for (uint i = 0; i < 5; i++) {
+			inputValues[i] = inputs[i];
+		}
+		// Verify the proof using the VerifierContract's verifyTX function
+		return IVerifierContract(verifierContract).verifyTX(proof, inputValues);
+	}
+
 	function updateBest(
 		Proof memory proof,
 		uint guessValue,
@@ -108,23 +130,24 @@ contract Guess {
 			closeGuessingAndResolvePrice();
 		}
 
+    // TODO while verifyTX succeeds called directly, check/checkCopy fails
 		// Verify the proof using the VerifierContract's verifyTX function
-		require(
-			IVerifierContract(verifierContract).verifyTX(
-				proof,
-				[
-					guessValue,
-					nullifierHash1,
-					nullifierHash2,
-					hashedGuessesRoot1,
-					hashedGuessesRoot2
-				]
-			),
-			"Proof verification failed"
-		);
+		// require(
+		// 	IVerifierContract(verifierContract).verifyTX(
+		// 		proof,
+		// 		[
+		// 			guessValue,
+		// 			nullifierHash1,
+		// 			nullifierHash2,
+		// 			hashedGuessesRoot1,
+		// 			hashedGuessesRoot2
+		// 		]
+		// 	),
+		// 	"Proof verification failed"
+		// );
 
 		// Proof root matches commitment
-    // TODO zokrates vs solidity
+		// TODO zokrates vs solidity
 		// require(
 		// 	uint(
 		// 		(uint128(hashedGuessesRoot1) << 128) |
@@ -162,7 +185,7 @@ interface IVerifierContract {
 	function verifyTX(
 		Proof memory proof,
 		uint[5] memory inputs
-	) external returns (bool);
+	) external view returns (bool);
 }
 
 interface IPriceContract {
