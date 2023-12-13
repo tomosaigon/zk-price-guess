@@ -58,12 +58,19 @@ contract Guess {
 		priceContract = _priceContract;
 	}
 
+	function getHashedGuesses() public view returns (uint[] memory) {
+		return hashedGuesses;
+	}
 	function hashedGuessesLength() public view returns (uint) {
 		return hashedGuesses.length;
+	}
+	function getCurrentBestGuessers() public view returns (address[] memory) {
+		return currentBestGuessers;
 	}
 	function currentBestGuessersLength() public view returns (uint) {
 		return currentBestGuessers.length;
 	}
+
 	function winnersLength() public view returns (uint) {
 		return updateBestIsAllowed ? 0 : currentBestGuessers.length;
 	}
@@ -129,6 +136,7 @@ contract Guess {
 		// Verify the proof using the VerifierContract's verifyTX function
 		return IVerifierContract(verifierContract).verifyTX(proof, inputs);
 	}
+
 	// XXX fails
 	function checkCopy(
 		Proof memory proof,
