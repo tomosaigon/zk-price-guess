@@ -52,6 +52,10 @@ contract Guess {
 		priceContract = _priceContract;
 	}
 
+	function hashedGuessesLength() public view returns (uint) {
+    return hashedGuesses.length;
+  }
+  
 	function closeGuessingAndResolvePrice() public {
 		guessingIsAllowed = false;
 
