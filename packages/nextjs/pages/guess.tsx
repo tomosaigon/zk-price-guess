@@ -145,52 +145,52 @@ const Home: NextPage = () => {
         {/* Render content for state where guessing is allowed */}
         {guessingIsAllowed && (
           <div className="px-5">
-            {/* table of hashed guesses */}
-            <table>
+            {/* Table of hashed guesses */}
+            <table className="border-collapse border w-full">
               <thead>
                 <tr>
-                  <th>Index</th>
-                  <th>Hashed Guess</th>
+                  <th className="border p-2">Index</th>
+                  <th className="border p-2">Hashed Guess</th>
                 </tr>
               </thead>
               <tbody>
                 {hashedGuesses &&
                   hashedGuesses.map((hashedGuess, index) => (
                     <tr key={index}>
-                      <td>{index}</td>
-                      <td>{hashedGuess.toString()}</td>
+                      <td className="border p-2">{index}</td>
+                      <td className="border p-2">{hashedGuess.toString()}</td>
                     </tr>
                   ))}
               </tbody>
             </table>
 
             {/* Form for committing guesses */}
-            <div>
+            <div className="mt-4">
               <label htmlFor="hashedGuess1">Hashed Guess 1:</label>
               <input
                 type="text"
                 id="hashedGuess1"
                 value={hashedGuess1}
                 onChange={(e) => setHashedGuess1(e.target.value)}
+                className="border rounded p-2"
               />
 
-              <label htmlFor="hashedGuess2">Hashed Guess 2:</label>
+              <label htmlFor="hashedGuess2" className="mt-2">Hashed Guess 2:</label>
               <input
                 type="text"
                 id="hashedGuess2"
                 value={hashedGuess2}
                 onChange={(e) => setHashedGuess2(e.target.value)}
+                className="border rounded p-2"
               />
 
-              <button onClick={(e) => {
+              <button className="mt-2 bg-blue-500 text-white p-2 rounded" onClick={(e) => {
                 writeAsyncCommitGuess();
                 e.preventDefault();
               }}>Commit Guess</button>
             </div>
 
-
-
-            <button onClick={(e) => {
+            <button className="mt-4 bg-red-500 text-white p-2 rounded" onClick={(e) => {
               writeAsyncCloseGuessing();
               e.preventDefault();
             }}>Close Guessing and Resolve Price</button>
@@ -199,25 +199,25 @@ const Home: NextPage = () => {
 
         {/* {updateBestIsAllowed } */}
         {updateBestIsAllowed && (
-          <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
+          <div className="flex-grow bg-gray-300 w-full mt-16 px-8 py-12">
             {/* Show settled BTC price, current best guess, and form for updating best guess */}
             <div>
               <p>Settled BTC Price: {btcPrice ? formatEther(btcPrice) : ''}</p>
               <p>Current Best Guess: {currentBestGuess ? formatEther(currentBestGuess) : ''}</p>
             </div>
 
-
             {/* Form for updating the best guess */}
-            <div>
+            <div className="mt-4">
               <label htmlFor="proof">Proof:</label>
               <input
                 type="text"
                 id="proof"
                 value={proof}
                 onChange={(e) => setProof(e.target.value)}
+                className="border rounded p-2"
               />
 
-              <label htmlFor="guess">Guess:</label>
+                            <label htmlFor="guess">Guess:</label>
               <input
                 type="text"
                 id="guess"
@@ -257,12 +257,13 @@ const Home: NextPage = () => {
                 onChange={(e) => setHashedGuessesRoot2(e.target.value)}
               />
 
-              <button onClick={(e) => {
+              <button className="mt-2 bg-green-500 text-white p-2 rounded" onClick={(e) => {
                 writeAsyncUpdateBestGuess();
                 e.preventDefault();
-              }}>Update Best Guess</button>
+              }}>Privately prove a better guess </button>
             </div>
-            <button onClick={(e) => {
+
+            <button className="mt-4 bg-purple-500 text-white p-2 rounded" onClick={(e) => {
               writeAsyncFinalize();
               e.preventDefault();
             }}>Finalize</button>
@@ -270,7 +271,7 @@ const Home: NextPage = () => {
         )}
 
         {/* TODO Always show the balance of ether in Guess contract and the ticket price */}
-      </div >
+      </div>
     </>
   );
 };
