@@ -24,11 +24,11 @@ def main(
   field[8][2] mut hashedGuesses = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]];
   field mut count = 0;
   field mut n = 0;
-  field mut g = 40000;
+  field mut g = 40000 * 1000000000000000000;
   for u32 i in 0..8 {
     // [0, nullifier, 0, guess
     hashedGuesses[i] = sha256packed([0, n, 0, g]);
-    g = g + 1000;
+    g = g + 1000 * 1000000000000000000;
     n = n + 1111;
     count = count + (hashedGuesses[i] == myHashedGuess ? 1 : 0);
   }
