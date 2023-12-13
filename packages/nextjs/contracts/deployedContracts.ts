@@ -4,6 +4,1603 @@
  */
 import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 
-const deployedContracts = {} as const;
+const deployedContracts = {
+  31337: {
+    Guess: {
+      address: "0x8f86403A4DE0BB5791fa46B8e795C547942fE4Cf",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_ticketPrice",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "_verifierContract",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_priceContract",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "btcPrice",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "btcPriceSet",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "X",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "Y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct G1Point",
+                  name: "a",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "X",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "Y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct G2Point",
+                  name: "b",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "X",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "Y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct G1Point",
+                  name: "c",
+                  type: "tuple",
+                },
+              ],
+              internalType: "struct Proof",
+              name: "proof",
+              type: "tuple",
+            },
+            {
+              internalType: "uint256[5]",
+              name: "inputs",
+              type: "uint256[5]",
+            },
+          ],
+          name: "check",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "X",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "Y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct G1Point",
+                  name: "a",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "X",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "Y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct G2Point",
+                  name: "b",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "X",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "Y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct G1Point",
+                  name: "c",
+                  type: "tuple",
+                },
+              ],
+              internalType: "struct Proof",
+              name: "proof",
+              type: "tuple",
+            },
+            {
+              internalType: "uint256[5]",
+              name: "inputs",
+              type: "uint256[5]",
+            },
+          ],
+          name: "checkCopy",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "closeGuessingAndResolvePrice",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "hashedGuess1",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "hashedGuess2",
+              type: "uint256",
+            },
+          ],
+          name: "commitGuess",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "root",
+              type: "uint256",
+            },
+          ],
+          name: "commitGuessesRoot",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "currentBestGuess",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "currentBestGuessers",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "currentBestGuessersLength",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "finalize",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "guessesRoot",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "guessingIsAllowed",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "hashedGuesses",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "hashedGuessesLength",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "lastGuessBySender",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "nullifiers",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "priceContract",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "ticketPrice",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "X",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "Y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct G1Point",
+                  name: "a",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "X",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "Y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct G2Point",
+                  name: "b",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "X",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "Y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct G1Point",
+                  name: "c",
+                  type: "tuple",
+                },
+              ],
+              internalType: "struct Proof",
+              name: "proof",
+              type: "tuple",
+            },
+            {
+              internalType: "uint256",
+              name: "guessValue",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "nullifierHash1",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "nullifierHash2",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "hashedGuessesRoot1",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "hashedGuessesRoot2",
+              type: "uint256",
+            },
+          ],
+          name: "updateBest",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "updateBestIsAllowed",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "verifierContract",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "winnersLength",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+    MockPriceContract: {
+      address: "0x70e0bA845a1A0F2DA3359C97E0285013525FFC49",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address payable",
+              name: "_tellorAddress",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "btcPrice",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "btcPriceShadow",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "_queryId",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "_timestamp",
+              type: "uint256",
+            },
+          ],
+          name: "getDataAfter",
+          outputs: [
+            {
+              internalType: "bytes",
+              name: "_value",
+              type: "bytes",
+            },
+            {
+              internalType: "uint256",
+              name: "_timestampRetrieved",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "_queryId",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "_timestamp",
+              type: "uint256",
+            },
+          ],
+          name: "getDataBefore",
+          outputs: [
+            {
+              internalType: "bytes",
+              name: "_value",
+              type: "bytes",
+            },
+            {
+              internalType: "uint256",
+              name: "_timestampRetrieved",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "_queryId",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "_timestamp",
+              type: "uint256",
+            },
+          ],
+          name: "getIndexForDataAfter",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "_found",
+              type: "bool",
+            },
+            {
+              internalType: "uint256",
+              name: "_index",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "_queryId",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "_timestamp",
+              type: "uint256",
+            },
+          ],
+          name: "getIndexForDataBefore",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "_found",
+              type: "bool",
+            },
+            {
+              internalType: "uint256",
+              name: "_index",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "_queryId",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "_timestamp",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_maxAge",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_maxCount",
+              type: "uint256",
+            },
+          ],
+          name: "getMultipleValuesBefore",
+          outputs: [
+            {
+              internalType: "bytes[]",
+              name: "_values",
+              type: "bytes[]",
+            },
+            {
+              internalType: "uint256[]",
+              name: "_timestamps",
+              type: "uint256[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "_queryId",
+              type: "bytes32",
+            },
+          ],
+          name: "getNewValueCountbyQueryId",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "_queryId",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "_timestamp",
+              type: "uint256",
+            },
+          ],
+          name: "getReporterByTimestamp",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "_queryId",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "_index",
+              type: "uint256",
+            },
+          ],
+          name: "getTimestampbyQueryIdandIndex",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "idMappingContract",
+          outputs: [
+            {
+              internalType: "contract IMappingContract",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "_queryId",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "_timestamp",
+              type: "uint256",
+            },
+          ],
+          name: "isInDispute",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "_queryId",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "_timestamp",
+              type: "uint256",
+            },
+          ],
+          name: "retrieveData",
+          outputs: [
+            {
+              internalType: "bytes",
+              name: "",
+              type: "bytes",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "setBtcPrice",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "price",
+              type: "uint256",
+            },
+          ],
+          name: "setBtcPriceShadow",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_addy",
+              type: "address",
+            },
+          ],
+          name: "setIdMappingContract",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "tellor",
+          outputs: [
+            {
+              internalType: "contract ITellor",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "_id",
+              type: "bytes32",
+            },
+          ],
+          name: "valueFor",
+          outputs: [
+            {
+              internalType: "int256",
+              name: "_value",
+              type: "int256",
+            },
+            {
+              internalType: "uint256",
+              name: "_timestamp",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_statusCode",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        getDataAfter: "usingtellor/contracts/UsingTellor.sol",
+        getDataBefore: "usingtellor/contracts/UsingTellor.sol",
+        getIndexForDataAfter: "usingtellor/contracts/UsingTellor.sol",
+        getIndexForDataBefore: "usingtellor/contracts/UsingTellor.sol",
+        getMultipleValuesBefore: "usingtellor/contracts/UsingTellor.sol",
+        getNewValueCountbyQueryId: "usingtellor/contracts/UsingTellor.sol",
+        getReporterByTimestamp: "usingtellor/contracts/UsingTellor.sol",
+        getTimestampbyQueryIdandIndex: "usingtellor/contracts/UsingTellor.sol",
+        idMappingContract: "usingtellor/contracts/UsingTellor.sol",
+        isInDispute: "usingtellor/contracts/UsingTellor.sol",
+        retrieveData: "usingtellor/contracts/UsingTellor.sol",
+        setIdMappingContract: "usingtellor/contracts/UsingTellor.sol",
+        tellor: "usingtellor/contracts/UsingTellor.sol",
+        valueFor: "usingtellor/contracts/UsingTellor.sol",
+      },
+    },
+    PriceContract: {
+      address: "0x4826533B4897376654Bb4d4AD88B7faFD0C98528",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address payable",
+              name: "_tellorAddress",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "btcPrice",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "_queryId",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "_timestamp",
+              type: "uint256",
+            },
+          ],
+          name: "getDataAfter",
+          outputs: [
+            {
+              internalType: "bytes",
+              name: "_value",
+              type: "bytes",
+            },
+            {
+              internalType: "uint256",
+              name: "_timestampRetrieved",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "_queryId",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "_timestamp",
+              type: "uint256",
+            },
+          ],
+          name: "getDataBefore",
+          outputs: [
+            {
+              internalType: "bytes",
+              name: "_value",
+              type: "bytes",
+            },
+            {
+              internalType: "uint256",
+              name: "_timestampRetrieved",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "_queryId",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "_timestamp",
+              type: "uint256",
+            },
+          ],
+          name: "getIndexForDataAfter",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "_found",
+              type: "bool",
+            },
+            {
+              internalType: "uint256",
+              name: "_index",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "_queryId",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "_timestamp",
+              type: "uint256",
+            },
+          ],
+          name: "getIndexForDataBefore",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "_found",
+              type: "bool",
+            },
+            {
+              internalType: "uint256",
+              name: "_index",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "_queryId",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "_timestamp",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_maxAge",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_maxCount",
+              type: "uint256",
+            },
+          ],
+          name: "getMultipleValuesBefore",
+          outputs: [
+            {
+              internalType: "bytes[]",
+              name: "_values",
+              type: "bytes[]",
+            },
+            {
+              internalType: "uint256[]",
+              name: "_timestamps",
+              type: "uint256[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "_queryId",
+              type: "bytes32",
+            },
+          ],
+          name: "getNewValueCountbyQueryId",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "_queryId",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "_timestamp",
+              type: "uint256",
+            },
+          ],
+          name: "getReporterByTimestamp",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "_queryId",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "_index",
+              type: "uint256",
+            },
+          ],
+          name: "getTimestampbyQueryIdandIndex",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "idMappingContract",
+          outputs: [
+            {
+              internalType: "contract IMappingContract",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "_queryId",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "_timestamp",
+              type: "uint256",
+            },
+          ],
+          name: "isInDispute",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "_queryId",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "_timestamp",
+              type: "uint256",
+            },
+          ],
+          name: "retrieveData",
+          outputs: [
+            {
+              internalType: "bytes",
+              name: "",
+              type: "bytes",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "setBtcPrice",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_addy",
+              type: "address",
+            },
+          ],
+          name: "setIdMappingContract",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "tellor",
+          outputs: [
+            {
+              internalType: "contract ITellor",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "_id",
+              type: "bytes32",
+            },
+          ],
+          name: "valueFor",
+          outputs: [
+            {
+              internalType: "int256",
+              name: "_value",
+              type: "int256",
+            },
+            {
+              internalType: "uint256",
+              name: "_timestamp",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_statusCode",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        getDataAfter: "usingtellor/contracts/UsingTellor.sol",
+        getDataBefore: "usingtellor/contracts/UsingTellor.sol",
+        getIndexForDataAfter: "usingtellor/contracts/UsingTellor.sol",
+        getIndexForDataBefore: "usingtellor/contracts/UsingTellor.sol",
+        getMultipleValuesBefore: "usingtellor/contracts/UsingTellor.sol",
+        getNewValueCountbyQueryId: "usingtellor/contracts/UsingTellor.sol",
+        getReporterByTimestamp: "usingtellor/contracts/UsingTellor.sol",
+        getTimestampbyQueryIdandIndex: "usingtellor/contracts/UsingTellor.sol",
+        idMappingContract: "usingtellor/contracts/UsingTellor.sol",
+        isInDispute: "usingtellor/contracts/UsingTellor.sol",
+        retrieveData: "usingtellor/contracts/UsingTellor.sol",
+        setIdMappingContract: "usingtellor/contracts/UsingTellor.sol",
+        tellor: "usingtellor/contracts/UsingTellor.sol",
+        valueFor: "usingtellor/contracts/UsingTellor.sol",
+      },
+    },
+    Verifier: {
+      address: "0x99bbA657f2BbC93c02D617f8bA121cB8Fc104Acf",
+      abi: [
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "X",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "Y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct Pairing.G1Point",
+                  name: "a",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256[2]",
+                      name: "X",
+                      type: "uint256[2]",
+                    },
+                    {
+                      internalType: "uint256[2]",
+                      name: "Y",
+                      type: "uint256[2]",
+                    },
+                  ],
+                  internalType: "struct Pairing.G2Point",
+                  name: "b",
+                  type: "tuple",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "X",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "Y",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct Pairing.G1Point",
+                  name: "c",
+                  type: "tuple",
+                },
+              ],
+              internalType: "struct Verifier.Proof",
+              name: "proof",
+              type: "tuple",
+            },
+            {
+              internalType: "uint256[5]",
+              name: "input",
+              type: "uint256[5]",
+            },
+          ],
+          name: "verifyTx",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "r",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+    YourContract: {
+      address: "0x0E801D84Fa97b50751Dbf25036d067dCf18858bF",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_owner",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "greetingSetter",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "newGreeting",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "bool",
+              name: "premium",
+              type: "bool",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "GreetingChange",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "greeting",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "premium",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "_newGreeting",
+              type: "string",
+            },
+          ],
+          name: "setGreeting",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "totalCounter",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "userGreetingCounter",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "withdraw",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          stateMutability: "payable",
+          type: "receive",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+  },
+} as const;
 
 export default deployedContracts satisfies GenericContractsDeclaration;

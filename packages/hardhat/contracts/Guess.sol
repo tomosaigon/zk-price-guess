@@ -29,6 +29,7 @@ contract Guess {
 	uint public guessesRoot;
 
 	bool public guessingIsAllowed = true;
+	bool public updateBestIsAllowed = true;
 
 	uint public currentBestGuess;
 	address[] public currentBestGuessers;
@@ -60,6 +61,12 @@ contract Guess {
 	function hashedGuessesLength() public view returns (uint) {
 		return hashedGuesses.length;
 	}
+	function currentBestGuessersLength() public view returns (uint) {
+		return currentBestGuessers.length;
+	}
+	function winnersLength() public view returns (uint) {
+		return updateBestIsAllowed ? 0 : currentBestGuessers.length;
+	}
 
 	function closeGuessingAndResolvePrice() public guessingAllowed {
 		guessingIsAllowed = false;
@@ -70,11 +77,29 @@ contract Guess {
 		btcPriceSet = true;
 	}
 
+	function finalize() public guessingNotAllowed {
+		require(updateBestIsAllowed, "Already finalized");
+		updateBestIsAllowed = false;
+
+		uint256 totalEther = address(this).balance;
+		require(totalEther > 0, "No Ether to distribute");
+
+		uint256 numberOfGuessers = currentBestGuessers.length;
+		// require(numberOfGuessers > 0, "No addresses to distribute to");
+
+		uint256 amountPerAddress = totalEther / numberOfGuessers;
+
+		for (uint256 i = 0; i < numberOfGuessers; i++) {
+			address payable guesser = payable(currentBestGuessers[i]);
+			guesser.transfer(amountPerAddress);
+		}
+	}
+
 	function commitGuess(
 		uint hashedGuess1,
 		uint hashedGuess2
 	) public payable guessingAllowed {
-		// require(msg.value >= ticketPrice, "Insufficient funds");
+		require(msg.value >= ticketPrice, "Insufficient funds");
 
 		uint hashedGuess = uint(
 			(uint128(hashedGuess1) << 128) | uint128(hashedGuess2)
@@ -96,7 +121,7 @@ contract Guess {
 	//   public field[2] nullifierHash,
 	//   public field[2] committedRoot,
 	//   private field[8][2] hashedGuesses)
-  // XXX fails
+	// XXX fails
 	function check(
 		Proof memory proof,
 		uint[5] memory inputs
@@ -104,7 +129,7 @@ contract Guess {
 		// Verify the proof using the VerifierContract's verifyTX function
 		return IVerifierContract(verifierContract).verifyTX(proof, inputs);
 	}
-  // XXX fails
+	// XXX fails
 	function checkCopy(
 		Proof memory proof,
 		uint[5] memory inputs
@@ -130,7 +155,7 @@ contract Guess {
 			closeGuessingAndResolvePrice();
 		}
 
-    // TODO while verifyTX succeeds called directly, check/checkCopy fails
+		// TODO while verifyTX succeeds called directly, check/checkCopy fails
 		// Verify the proof using the VerifierContract's verifyTX function
 		// require(
 		// 	IVerifierContract(verifierContract).verifyTX(
@@ -145,6 +170,18 @@ contract Guess {
 		// 	),
 		// 	"Proof verification failed"
 		// );
+		if (false) {
+			IVerifierContract(verifierContract).verifyTX(
+				proof,
+				[
+					guessValue,
+					nullifierHash1,
+					nullifierHash2,
+					hashedGuessesRoot1,
+					hashedGuessesRoot2
+				]
+			);
+		}
 
 		// Proof root matches commitment
 		// TODO zokrates vs solidity
