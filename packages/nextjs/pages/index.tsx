@@ -74,6 +74,14 @@ const Home: NextPage = () => {
   //   contractName: "MockPriceContract",
   //   functionName: "btcPrice",
   // });
+  const { data: ticketPrice, isLoading: isLoadingTicketPrice } = useScaffoldContractRead({
+    contractName: "Guess",
+    functionName: "ticketPrice",
+  });
+  const { data: hashedGuessesLength, isLoading: isLoadingHashedGuessesLength } = useScaffoldContractRead({
+    contractName: "Guess",
+    functionName: "hashedGuessesLength",
+  });
   const { data: currentBestGuess, isLoading: isLoadingCurrentBestGuess } = useScaffoldContractRead({
     contractName: "Guess",
     functionName: "currentBestGuess",
@@ -101,6 +109,7 @@ const Home: NextPage = () => {
       BigInt(hashedGuess1),
       BigInt(hashedGuess2,)
     ],
+    value: ticketPrice,
     onBlockConfirmation: (txnReceipt: any) => {
       console.log("commitGuess blockHash", txnReceipt.blockHash);
     },
@@ -142,6 +151,12 @@ const Home: NextPage = () => {
     <>
       <MetaHeader />
       <div className="flex items-center flex-col flex-grow pt-10">
+
+        <p className="text-lg font-bold mb-4">Ticket Price: {!isLoadingTicketPrice && ticketPrice ? formatEther(ticketPrice as bigint) : '...'}</p>
+
+        <p className="text-lg font-bold mb-4">x Hashed Guesses: {isLoadingHashedGuessesLength || !hashedGuessesLength ? '0' : hashedGuessesLength?.toString()}</p>
+
+
         {/* Render content for state where guessing is allowed */}
         {!isLoadingGuessingIsAllowed && guessingIsAllowed && (
           <div className="px-5">
@@ -189,7 +204,7 @@ const Home: NextPage = () => {
               <button className="mt-2 bg-blue-500 text-white p-2 rounded" disabled={isCommittingGuess}  onClick={(e) => {
                 writeAsyncCommitGuess();
                 e.preventDefault();
-              }}>Commit Guess</button>
+              }}>Play Price and Commit Guess</button>
             </div>
 
             <button className="mt-4 bg-red-500 text-white p-2 rounded" disabled={isClosingGuessing} onClick={(e) => {
