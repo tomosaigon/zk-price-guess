@@ -1,21 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
-struct G1Point {
-	uint X;
-	uint Y;
-}
-// Encoding of field elements is: X[0] * z + X[1]
-struct G2Point {
-	uint[2] X;
-	uint[2] Y;
-}
-struct Proof {
-	G1Point a;
-	G2Point b;
-	G1Point c;
-}
-
 contract Guess {
 	address public owner;
 	uint public ticketPrice;
@@ -61,12 +46,15 @@ contract Guess {
 	function getHashedGuesses() public view returns (uint[] memory) {
 		return hashedGuesses;
 	}
+
 	function hashedGuessesLength() public view returns (uint) {
 		return hashedGuesses.length;
 	}
+
 	function getCurrentBestGuessers() public view returns (address[] memory) {
 		return currentBestGuessers;
 	}
+
 	function currentBestGuessersLength() public view returns (uint) {
 		return currentBestGuessers.length;
 	}
@@ -130,29 +118,48 @@ contract Guess {
 	//   private field[8][2] hashedGuesses)
 	// XXX fails
 	function check(
-		Proof memory proof,
+		IVerifier.Proof memory proof,
 		uint[5] memory inputs
 	) public view returns (bool) {
-		// Verify the proof using the VerifierContract's verifyTX function
-		return IVerifierContract(verifierContract).verifyTX(proof, inputs);
+		// Verify the proof using the VerifierContract's verifyTx function
+		return IVerifier(verifierContract).verifyTx(proof, inputs);
 	}
 
-	// XXX fails
-	function checkCopy(
-		Proof memory proof,
-		uint[5] memory inputs
-	) public view returns (bool) {
-		uint[5] memory inputValues;
-
-		for (uint i = 0; i < 5; i++) {
-			inputValues[i] = inputs[i];
-		}
-		// Verify the proof using the VerifierContract's verifyTX function
-		return IVerifierContract(verifierContract).verifyTX(proof, inputValues);
+	function checkStatic() public view returns (bool) {
+		// Proof 2 is  [["0x1504c4318b6154f93e9edea0cf2133f54b1a5b4758c845845bbd30d67cd8de72","0x230114bf4de2b35c7ecb87de13e3a6bd2b282356e5c08c713d486a974fffea51"],[["0x217e3b26baf1da4e6e4d49836d86ba9855840a7884a1b766242ca3e7b7aec230","0x1112d824bee408d6be442cbd32bebe6287285b771c023118a93d4c9ae5ebf069"],["0x2a3c656dcf6267ce06c12e099dfc8af1682d48287dbc178eb88932f2a4b8a405","0x24e3fa05cf1fef2365b86030bd2a02b1b3b504bb4030c767fbcd1931209622ea"]],["0x16e3db2f1298ed70997e964c7d2747411ee3eaf72f2677caa1794ef00e5ec610","0x1c540cf1b24f256598085b5742aa74c4aa669d4080b125a56ed048b56e78f5e2"]]
+		IVerifier.Proof memory proof = IVerifier.Proof(
+			IPairing.G1Point(
+				0x1504c4318b6154f93e9edea0cf2133f54b1a5b4758c845845bbd30d67cd8de72,
+				0x230114bf4de2b35c7ecb87de13e3a6bd2b282356e5c08c713d486a974fffea51
+			),
+			IPairing.G2Point(
+				[
+					0x217e3b26baf1da4e6e4d49836d86ba9855840a7884a1b766242ca3e7b7aec230,
+					0x1112d824bee408d6be442cbd32bebe6287285b771c023118a93d4c9ae5ebf069
+				],
+				[
+					0x2a3c656dcf6267ce06c12e099dfc8af1682d48287dbc178eb88932f2a4b8a405,
+					0x24e3fa05cf1fef2365b86030bd2a02b1b3b504bb4030c767fbcd1931209622ea
+				]
+			),
+			IPairing.G1Point(
+				0x16e3db2f1298ed70997e964c7d2747411ee3eaf72f2677caa1794ef00e5ec610,
+				0x1c540cf1b24f256598085b5742aa74c4aa669d4080b125a56ed048b56e78f5e2
+			)
+		);
+		// Inputs 2 are  ["0x08e4d316827686400000","0x1ef7e8664a33f754acb960556128dd2a","0x1526e87de6a167b7efff870982475e31","0xe6403178da849ec42f030f92d9c3f081","0x99d15d4263f91abfefb2c6e53626b9f0"]
+		uint[5] memory inputValues = [
+			uint256(0x08e4d316827686400000),
+			0x1ef7e8664a33f754acb960556128dd2a,
+			0x1526e87de6a167b7efff870982475e31,
+			0xe6403178da849ec42f030f92d9c3f081,
+			0x99d15d4263f91abfefb2c6e53626b9f0
+		];
+		return IVerifier(verifierContract).verifyTx(proof, inputValues);
 	}
 
 	function updateBest(
-		Proof memory proof,
+		IVerifier.Proof memory proof,
 		uint guessValue,
 		uint nullifierHash1,
 		uint nullifierHash2,
@@ -163,23 +170,9 @@ contract Guess {
 			closeGuessingAndResolvePrice();
 		}
 
-		// TODO while verifyTX succeeds called directly, check/checkCopy fails
-		// Verify the proof using the VerifierContract's verifyTX function
-		// require(
-		// 	IVerifierContract(verifierContract).verifyTX(
-		// 		proof,
-		// 		[
-		// 			guessValue,
-		// 			nullifierHash1,
-		// 			nullifierHash2,
-		// 			hashedGuessesRoot1,
-		// 			hashedGuessesRoot2
-		// 		]
-		// 	),
-		// 	"Proof verification failed"
-		// );
-		if (false) {
-			IVerifierContract(verifierContract).verifyTX(
+		// Verify the proof using the VerifierContract's verifyTx function
+		require(
+			IVerifier(verifierContract).verifyTx(
 				proof,
 				[
 					guessValue,
@@ -188,8 +181,9 @@ contract Guess {
 					hashedGuessesRoot1,
 					hashedGuessesRoot2
 				]
-			);
-		}
+			),
+			"Proof verification failed"
+		);
 
 		// Proof root matches commitment
 		// TODO zokrates vs solidity
@@ -226,8 +220,26 @@ contract Guess {
 	}
 }
 
-interface IVerifierContract {
-	function verifyTX(
+interface IPairing {
+	struct G1Point {
+		uint X;
+		uint Y;
+	}
+	// Encoding of field elements is: X[0] * z + X[1]
+	struct G2Point {
+		uint[2] X;
+		uint[2] Y;
+	}
+}
+
+interface IVerifier {
+	struct Proof {
+		IPairing.G1Point a;
+		IPairing.G2Point b;
+		IPairing.G1Point c;
+	}
+
+	function verifyTx(
 		Proof memory proof,
 		uint[5] memory inputs
 	) external view returns (bool);
