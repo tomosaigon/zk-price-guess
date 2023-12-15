@@ -23,8 +23,8 @@ const deployGuess: DeployFunction = async function (hre: HardhatRuntimeEnvironme
 
   const _ticketPrice = hre.ethers.utils.parseEther("0.01");
   const _verifierContract = await hre.deployments.get("Verifier");
-  const _priceContract = await hre.deployments.get("PriceContract");
-  // const _priceContract = await hre.deployments.get("MockPriceContract");
+  // const _priceContract = await hre.deployments.get("PriceContract");
+  const _priceContract = await hre.deployments.get("MockPriceContract");
 
   await deploy("Guess", {
     from: deployer,
