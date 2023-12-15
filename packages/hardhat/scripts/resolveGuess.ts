@@ -2,10 +2,11 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { promises as fs } from "fs";
 import hre from "hardhat";
 import { Guess, Verifier, MockPriceContract } from "../typechain-types";
-import { ProofStruct, G1PointStruct, G2PointStruct } from "../typechain-types/contracts/Guess.sol/Guess";
+// import { IPairing, IVerifier, ProofStruct, G1PointStruct, G2PointStruct } from "../typechain-types/contracts/Guess.sol/Guess";
+import { IPairing, IVerifier } from "../typechain-types/contracts/Guess.sol/Guess";
 import { hexZeroPad, hexlify } from "ethers/lib/utils";
 import { BigNumber } from "ethers";
-
+// IPairing.ProofStruct
 // async function findFiles(pattern: string): Promise<string[]> {
 //   const directory = "../zokrates";
 //   const files = await fs.readdir(directory);
@@ -39,8 +40,8 @@ async function main() {
   const btcPrice = hre.ethers.utils.formatEther(await guessContract.btcPrice());
   console.log(`BTC price is ${btcPrice}`);
 
-  const order = [7, 6, 5, 0, 1, 2];
-  // const order = [2];
+  // const order = [7, 6, 5, 0, 1, 2];
+  const order = [2];
   for (let idx = 0; idx < order.length; idx++) {
     const i = order[idx];
     const guessContract = (await hre.ethers.getContract("Guess", signers[i])) as Guess;
@@ -76,7 +77,8 @@ async function main() {
     if (!(proofJSON.proof && proofJSON.proof.a && proofJSON.proof.b && proofJSON.proof.c)) {
       throw new Error(`Proof ${i} is bad`);
     }
-    const proof = proofJSON.proof as ProofStruct;
+    // const proof = proofJSON.proof as ProofStruct;
+    const proof = proofJSON.proof as IVerifier.ProofStruct;
     // console.log(`Proof ${i} is `, proof);
     console.log(`Proof ${i} is `, JSON.stringify([proof.a, proof.b, proof.c]).replace('\n', ''));
     const inputs = [w[0], w[4], w[5], w[6], w[7]].map(BigInt);
