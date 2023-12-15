@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     Guess: {
-      address: "0x1291Be112d480055DaFd8a610b7d1e203891C274",
+      address: "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
       abi: [
         {
           inputs: [
@@ -73,7 +73,7 @@ const deployedContracts = {
                       type: "uint256",
                     },
                   ],
-                  internalType: "struct G1Point",
+                  internalType: "struct IPairing.G1Point",
                   name: "a",
                   type: "tuple",
                 },
@@ -90,7 +90,7 @@ const deployedContracts = {
                       type: "uint256[2]",
                     },
                   ],
-                  internalType: "struct G2Point",
+                  internalType: "struct IPairing.G2Point",
                   name: "b",
                   type: "tuple",
                 },
@@ -107,12 +107,12 @@ const deployedContracts = {
                       type: "uint256",
                     },
                   ],
-                  internalType: "struct G1Point",
+                  internalType: "struct IPairing.G1Point",
                   name: "c",
                   type: "tuple",
                 },
               ],
-              internalType: "struct Proof",
+              internalType: "struct IVerifier.Proof",
               name: "proof",
               type: "tuple",
             },
@@ -134,72 +134,8 @@ const deployedContracts = {
           type: "function",
         },
         {
-          inputs: [
-            {
-              components: [
-                {
-                  components: [
-                    {
-                      internalType: "uint256",
-                      name: "X",
-                      type: "uint256",
-                    },
-                    {
-                      internalType: "uint256",
-                      name: "Y",
-                      type: "uint256",
-                    },
-                  ],
-                  internalType: "struct G1Point",
-                  name: "a",
-                  type: "tuple",
-                },
-                {
-                  components: [
-                    {
-                      internalType: "uint256[2]",
-                      name: "X",
-                      type: "uint256[2]",
-                    },
-                    {
-                      internalType: "uint256[2]",
-                      name: "Y",
-                      type: "uint256[2]",
-                    },
-                  ],
-                  internalType: "struct G2Point",
-                  name: "b",
-                  type: "tuple",
-                },
-                {
-                  components: [
-                    {
-                      internalType: "uint256",
-                      name: "X",
-                      type: "uint256",
-                    },
-                    {
-                      internalType: "uint256",
-                      name: "Y",
-                      type: "uint256",
-                    },
-                  ],
-                  internalType: "struct G1Point",
-                  name: "c",
-                  type: "tuple",
-                },
-              ],
-              internalType: "struct Proof",
-              name: "proof",
-              type: "tuple",
-            },
-            {
-              internalType: "uint256[5]",
-              name: "inputs",
-              type: "uint256[5]",
-            },
-          ],
-          name: "checkCopy",
+          inputs: [],
+          name: "checkStatic",
           outputs: [
             {
               internalType: "bool",
@@ -478,7 +414,7 @@ const deployedContracts = {
                       type: "uint256",
                     },
                   ],
-                  internalType: "struct G1Point",
+                  internalType: "struct IPairing.G1Point",
                   name: "a",
                   type: "tuple",
                 },
@@ -495,7 +431,7 @@ const deployedContracts = {
                       type: "uint256[2]",
                     },
                   ],
-                  internalType: "struct G2Point",
+                  internalType: "struct IPairing.G2Point",
                   name: "b",
                   type: "tuple",
                 },
@@ -512,12 +448,12 @@ const deployedContracts = {
                       type: "uint256",
                     },
                   ],
-                  internalType: "struct G1Point",
+                  internalType: "struct IPairing.G1Point",
                   name: "c",
                   type: "tuple",
                 },
               ],
-              internalType: "struct Proof",
+              internalType: "struct IVerifier.Proof",
               name: "proof",
               type: "tuple",
             },
@@ -595,7 +531,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     MockPriceContract: {
-      address: "0x70e0bA845a1A0F2DA3359C97E0285013525FFC49",
+      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
       abi: [
         {
           inputs: [
@@ -1011,7 +947,7 @@ const deployedContracts = {
       },
     },
     PriceContract: {
-      address: "0x4826533B4897376654Bb4d4AD88B7faFD0C98528",
+      address: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
       abi: [
         {
           inputs: [
@@ -1401,7 +1337,7 @@ const deployedContracts = {
       },
     },
     Verifier: {
-      address: "0x99bbA657f2BbC93c02D617f8bA121cB8Fc104Acf",
+      address: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
       abi: [
         {
           inputs: [
@@ -1484,7 +1420,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     YourContract: {
-      address: "0x0E801D84Fa97b50751Dbf25036d067dCf18858bF",
+      address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
       abi: [
         {
           inputs: [
